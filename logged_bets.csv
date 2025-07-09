@@ -1,0 +1,46 @@
+matchup,book,market,team_or_player,odds,implied_prob,projection,book_weight,edge
+Pittsburgh Pirates @ Kansas City Royals,BetMGM,h2h,Pittsburgh Pirates,2.7,0.37037037037037035,0.55,1.1,0.19759259259259268
+Los Angeles Dodgers @ Milwaukee Brewers,BetUS,h2h,Milwaukee Brewers,2.44,0.4098360655737705,0.55,1.0,0.14016393442622954
+Seattle Mariners @ New York Yankees,DraftKings,h2h,Seattle Mariners,2.34,0.4273504273504274,0.55,1.1,0.13491452991452993
+Toronto Blue Jays @ Chicago White Sox,BetOnline.ag,h2h,Chicago White Sox,2.37,0.42194092827004215,0.55,1.0,0.1280590717299579
+New York Mets @ Baltimore Orioles,BetOnline.ag,h2h,Baltimore Orioles,2.36,0.42372881355932207,0.55,1.0,0.12627118644067797
+Tampa Bay Rays @ Detroit Tigers,BetMGM,h2h,Tampa Bay Rays,2.25,0.4444444444444444,0.55,1.1,0.11611111111111119
+Cleveland Guardians @ Houston Astros,BetMGM,h2h,Cleveland Guardians,2.25,0.4444444444444444,0.55,1.1,0.11611111111111119
+Miami Marlins @ Cincinnati Reds,BetOnline.ag,h2h,Miami Marlins,2.28,0.4385964912280702,0.55,1.0,0.11140350877192984
+Arizona Diamondbacks @ San Diego Padres,LowVig.ag,h2h,Arizona Diamondbacks,2.27,0.44052863436123346,0.55,1.0,0.10947136563876658
+Texas Rangers @ Los Angeles Angels,BetUS,h2h,Los Angeles Angels,2.2,0.45454545454545453,0.55,1.0,0.09545454545454551
+Philadelphia Phillies @ San Francisco Giants,BetMGM,h2h,San Francisco Giants,2.15,0.46511627906976744,0.55,1.1,0.09337209302325587
+Atlanta Braves @ Oakland Athletics,FanDuel,h2h,Oakland Athletics,2.08,0.4807692307692307,0.55,1.0,0.06923076923076932
+Washington Nationals @ St. Louis Cardinals,BetUS,h2h,Washington Nationals,2.07,0.48309178743961356,0.55,1.0,0.06690821256038648
+Chicago Cubs @ Minnesota Twins,BetUS,h2h,Minnesota Twins,2.0,0.5,0.55,1.0,0.050000000000000044
+Colorado Rockies @ Boston Red Sox,BetOnline.ag,h2h,Boston Red Sox,1.34,0.7462686567164178,0.55,1.0,-0.1962686567164178
+Washington Nationals @ St. Louis Cardinals,LowVig.ag,spreads,St. Louis Cardinals -1.5,2.82,0.3546099290780142,0.55,1.0,0.19539007092198585
+Arizona Diamondbacks @ San Diego Padres,BetMGM,spreads,San Diego Padres -1.5,2.65,0.37735849056603776,0.55,1.1,0.18990566037735854
+Cleveland Guardians @ Houston Astros,BetMGM,spreads,Houston Astros -1.5,2.55,0.3921568627450981,0.55,1.1,0.17362745098039217
+Miami Marlins @ Cincinnati Reds,BetMGM,spreads,Cincinnati Reds -1.5,2.54,0.39370078740157477,0.55,1.1,0.17192913385826783
+Tampa Bay Rays @ Detroit Tigers,BetMGM,spreads,Detroit Tigers -1.5,2.5,0.4,0.55,1.1,0.16500000000000004
+Chicago Cubs @ Minnesota Twins,LowVig.ag,spreads,Chicago Cubs -1.5,2.49,0.4016064257028112,0.55,1.0,0.14839357429718886
+Seattle Mariners @ New York Yankees,BetMGM,spreads,New York Yankees -1.5,2.35,0.425531914893617,0.55,1.1,0.13691489361702133
+Philadelphia Phillies @ San Francisco Giants,DraftKings,spreads,Philadelphia Phillies -1.5,2.29,0.4366812227074236,0.55,1.1,0.1246506550218341
+Atlanta Braves @ Oakland Athletics,DraftKings,spreads,Atlanta Braves -1.5,2.28,0.4385964912280702,0.55,1.1,0.12254385964912283
+Texas Rangers @ Los Angeles Angels,MyBookie.ag,spreads,Texas Rangers -1.5,2.31,0.4329004329004329,0.55,1.0,0.11709956709956715
+Colorado Rockies @ Boston Red Sox,LowVig.ag,spreads,Colorado Rockies +1.5,2.3,0.4347826086956522,0.55,1.0,0.11521739130434783
+New York Mets @ Baltimore Orioles,BetMGM,spreads,New York Mets -1.5,2.1,0.47619047619047616,0.55,1.1,0.08119047619047627
+Toronto Blue Jays @ Chicago White Sox,BetMGM,spreads,Toronto Blue Jays -1.5,2.1,0.47619047619047616,0.55,1.1,0.08119047619047627
+Pittsburgh Pirates @ Kansas City Royals,Bovada,spreads,Kansas City Royals -1.5,2.1,0.47619047619047616,0.55,1.0,0.07380952380952388
+Los Angeles Dodgers @ Milwaukee Brewers,FanDuel,spreads,Los Angeles Dodgers -1.5,2.08,0.4807692307692307,0.55,1.0,0.06923076923076932
+Arizona Diamondbacks @ San Diego Padres,LowVig.ag,totals,Under 7.5,2.07,0.48309178743961356,0.55,1.0,0.06690821256038648
+Cleveland Guardians @ Houston Astros,LowVig.ag,totals,Over 8.0,2.07,0.48309178743961356,0.55,1.0,0.06690821256038648
+Colorado Rockies @ Boston Red Sox,Bovada,totals,Under 9.0,2.05,0.48780487804878053,0.55,1.0,0.06219512195121951
+Miami Marlins @ Cincinnati Reds,DraftKings,totals,Under 8.5,2.01,0.49751243781094534,0.55,1.1,0.05773631840796018
+Toronto Blue Jays @ Chicago White Sox,LowVig.ag,totals,Over 8.5,2.03,0.4926108374384237,0.55,1.0,0.057389162561576335
+Chicago Cubs @ Minnesota Twins,LowVig.ag,totals,Over 9.5,2.03,0.4926108374384237,0.55,1.0,0.057389162561576335
+Philadelphia Phillies @ San Francisco Giants,LowVig.ag,totals,Under 8.0,2.01,0.49751243781094534,0.55,1.0,0.052487562189054704
+Atlanta Braves @ Oakland Athletics,Bovada,totals,Under 10.5,2.0,0.5,0.55,1.0,0.050000000000000044
+New York Mets @ Baltimore Orioles,FanDuel,totals,Under 9.5,2.0,0.5,0.55,1.0,0.050000000000000044
+Tampa Bay Rays @ Detroit Tigers,DraftKings,totals,Under 8.0,1.98,0.5050505050505051,0.55,1.1,0.049444444444444464
+Texas Rangers @ Los Angeles Angels,LowVig.ag,totals,Over 9.0,1.99,0.5025125628140703,0.55,1.0,0.04748743718592974
+Washington Nationals @ St. Louis Cardinals,BetMGM,totals,Under 8.0,1.95,0.5128205128205129,0.55,1.1,0.04089743589743588
+Seattle Mariners @ New York Yankees,BetMGM,totals,Under 9.5,1.95,0.5128205128205129,0.55,1.1,0.04089743589743588
+Pittsburgh Pirates @ Kansas City Royals,LowVig.ag,totals,Under 8.5,1.96,0.5102040816326531,0.55,1.0,0.03979591836734697
+Los Angeles Dodgers @ Milwaukee Brewers,DraftKings,totals,Under 8.5,1.93,0.5181347150259068,0.55,1.1,0.035051813471502574

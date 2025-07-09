@@ -1,5 +1,7 @@
 import requests
 import pandas as pd
+import os
+from datetime import datetime
 
 API_KEY = '2323490a159b58cfff6471be89e12d2d'
 
@@ -66,8 +68,25 @@ def get_mlb_odds():
 
     return df.sort_values(['market', 'edge'], ascending=[True, False])
 
+def save_top_bets(df, top_n=5):
+    today = datetime.now().strftime('%Y-%m-%d')
+    output_dir = 'daily_bets'
+    os.makedirs(output_dir, exist_ok=True)
+    filepath = os.path.join(output_dir, f'{today}.csv')
+
+    top_bets = pd.concat([
+        df[df['market'] == 'h2h'].nlargest(5, 'edge'),
+        df[df['market'] == 'spreads'].nlargest(5, 'edge'),
+        df[df['market'] == 'totals'].nlargest(5, 'edge')
+    ])
+
+    top_bets['result'] = ''  # You’ll fill this in manually (W or L)
+    top_bets.to_csv(filepath, index=False)
+    print(f"✅ Saved top bets to {filepath}")
+
 def save_to_csv(df, filename='logged_bets.csv'):
     df.to_csv(filename, index=False)
 
 if __name__ == '__main__':
-    get_mlb_odds()
+    df = get_mlb_odds()
+    save_top_bets(df)

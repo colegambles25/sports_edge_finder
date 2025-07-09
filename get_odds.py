@@ -18,11 +18,6 @@ def get_mlb_odds():
         raise Exception(f"Failed to get odds: {response.status_code} {response.text}")
 
     games = response.json()
-
-    print("Total games received:", len(games))
-    for game in games:
-        print([market['key'] for b in game['bookmakers'] for market in b['markets']])
-
     rows = []
 
     for game in games:
@@ -31,7 +26,6 @@ def get_mlb_odds():
         for bookmaker in game['bookmakers']:
             for market in bookmaker['markets']:
                 for outcome in market['outcomes']:
-                    print(market['key'], outcome)  # Debug
                     try:
                         if market['key'] == 'spreads':
                             bet_label = f"{outcome['name']} {'+' if outcome['point'] > 0 else ''}{outcome['point']}"
@@ -45,16 +39,32 @@ def get_mlb_odds():
                             'book': bookmaker['title'],
                             'market': market['key'],
                             'team_or_player': bet_label,
-                            'odds': outcome['price']
+                            'odds': outcome['price'],
+                            'implied_prob': 1 / outcome['price']
                         })
                     except KeyError:
                         continue
 
     df = pd.DataFrame(rows)
-    df['implied_prob'] = 1 / df['odds']
-    df['projection'] = df.groupby('matchup')['implied_prob'].transform('mean')
-    df['edge'] = df['projection'] - df['implied_prob']
-    df = df[df['edge'] > 0]
+
+    # 🚫 Filter out longshots (> +200 or 3.0 in decimal)
+    df = df[df['odds'] <= 3.0]
+
+    # 🧠 Assign market-implied projection (no fake consensus)
+    df['projection'] = df['implied_prob']
+
+    # 🔢 Book weighting: prioritize sharper books
+    sharp_books = ['BetMGM', 'PointsBet', 'Caesars']
+    df['book_weight'] = df['book'].apply(lambda x: 1.1 if x in sharp_books else 1.0)
+
+    # 💥 Calculate adjusted edge
+    df['edge'] = (df['projection'] - df['implied_prob']) * df['book_weight']
+
+    # 🔒 Keep only one side per market per matchup
+    df = df.sort_values('edge', ascending=False)
+    df = df.drop_duplicates(subset=['matchup', 'market'], keep='first')
+
+    # Final sort
     return df.sort_values(['market', 'edge'], ascending=[True, False])
 
 def save_to_csv(df, filename='logged_bets.csv'):

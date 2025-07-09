@@ -8,7 +8,7 @@ def get_mlb_odds():
     params = {
         'apiKey': API_KEY,
         'regions': 'us',
-        'markets': 'h2h,player_pitcher_strikeouts',
+        'markets': 'h2h',
         'oddsFormat': 'decimal',
         'dateFormat': 'iso'
     }

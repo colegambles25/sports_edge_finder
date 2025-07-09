@@ -49,20 +49,20 @@ def get_mlb_odds():
 
     df = pd.DataFrame(rows)
 
-    # 🚫 Remove bad lines
-    df = df[df['odds'] <= 3.0]  # No longshots over +200
+    # 🚫 Remove longshots (over +200)
+    df = df[df['odds'] <= 3.0]
 
-    # 📈 Add projection (placeholder: 55% chance to beat book)
+    # 📈 Placeholder projection
     df['projection'] = 0.55
 
-    # 🧠 Add sharp book weight
+    # 🧠 Weight sharp books
     sharp_books = ['BetMGM', 'PointsBet', 'Caesars', 'DraftKings']
     df['book_weight'] = df['book'].apply(lambda x: 1.1 if x in sharp_books else 1.0)
 
     # 💥 Edge calculation
     df['edge'] = (df['projection'] - df['implied_prob']) * df['book_weight']
 
-    # 🔒 Keep best per market per matchup
+    # 🔒 Keep highest-edge bet per market per matchup
     df = df.sort_values('edge', ascending=False)
     df = df.drop_duplicates(subset=['matchup', 'market'], keep='first')
 
@@ -75,12 +75,12 @@ def save_top_bets(df, top_n=5):
     filepath = os.path.join(output_dir, f'{today}.csv')
 
     top_bets = pd.concat([
-        df[df['market'] == 'h2h'].nlargest(5, 'edge'),
-        df[df['market'] == 'spreads'].nlargest(5, 'edge'),
-        df[df['market'] == 'totals'].nlargest(5, 'edge')
+        df[df['market'] == 'h2h'].nlargest(top_n, 'edge'),
+        df[df['market'] == 'spreads'].nlargest(top_n, 'edge'),
+        df[df['market'] == 'totals'].nlargest(top_n, 'edge')
     ])
 
-    top_bets['result'] = ''  # You’ll fill this in manually (W or L)
+    top_bets['result'] = ''  # Fill this in manually later
     top_bets.to_csv(filepath, index=False)
     print(f"✅ Saved top bets to {filepath}")
 

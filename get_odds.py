@@ -47,24 +47,23 @@ def get_mlb_odds():
 
     df = pd.DataFrame(rows)
 
-    # 🚫 Filter out longshots (> +200 or 3.0 in decimal)
-    df = df[df['odds'] <= 3.0]
+    # 🚫 Remove bad lines
+    df = df[df['odds'] <= 3.0]  # No longshots over +200
 
-    # 🧠 Assign market-implied projection (no fake consensus)
-    df['projection'] = df['implied_prob']
+    # 📈 Add projection (placeholder: 55% chance to beat book)
+    df['projection'] = 0.55
 
-    # 🔢 Book weighting: prioritize sharper books
-    sharp_books = ['BetMGM', 'PointsBet', 'Caesars']
+    # 🧠 Add sharp book weight
+    sharp_books = ['BetMGM', 'PointsBet', 'Caesars', 'DraftKings']
     df['book_weight'] = df['book'].apply(lambda x: 1.1 if x in sharp_books else 1.0)
 
-    # 💥 Calculate adjusted edge
+    # 💥 Edge calculation
     df['edge'] = (df['projection'] - df['implied_prob']) * df['book_weight']
 
-    # 🔒 Keep only one side per market per matchup
+    # 🔒 Keep best per market per matchup
     df = df.sort_values('edge', ascending=False)
     df = df.drop_duplicates(subset=['matchup', 'market'], keep='first')
 
-    # Final sort
     return df.sort_values(['market', 'edge'], ascending=[True, False])
 
 def save_to_csv(df, filename='logged_bets.csv'):

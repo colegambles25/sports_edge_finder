@@ -3,20 +3,16 @@ from get_odds import get_mlb_odds, save_to_csv
 
 st.set_page_config(page_title="MLB Locks Dashboard", layout="wide")
 st.title("🔒 Top MLB Locks Today")
-st.caption("1 bet per game · FanDuel, DraftKings, BetMGM only")
+st.caption("1 bet per game · Best available across all sportsbooks")
 
 try:
     df = get_mlb_odds()
     save_to_csv(df)
 
-    # Filter for top books only
-    trusted_books = ['FanDuel', 'DraftKings', 'BetMGM']
-    df = df[df['book'].isin(trusted_books)]
-
     # Sort by edge
     df = df.sort_values('edge', ascending=False)
 
-    # Helper to extract top 5 per market with unique matchups
+    # Helper: extract top 5 unique matchups per market
     def top_unique(df, market_key):
         filtered = df[df['market'] == market_key]
         filtered = filtered.drop_duplicates(subset='matchup', keep='first')

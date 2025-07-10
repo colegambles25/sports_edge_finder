@@ -82,23 +82,4 @@ st.dataframe(market_summary.style.format({'win_pct': '{:.1f}%', 'roi': '{:.2f}%'
 
 # 📋 Full Bet Log
 with st.expander("📋 View Full Bet History"):
-
-    def highlight_result(row):
-        if row['result'] == 'W':
-            return ['background-color: #d4edda'] * len(row)  # Light green
-        elif row['result'] == 'L':
-            return ['background-color: #f8d7da'] * len(row)  # Light red
-        elif row['result'] == 'P':
-            return ['background-color: #e2e3e5'] * len(row)  # Light gray
-        else:
-            return [''] * len(row)
-
-    full_log = df.sort_values(['date', 'market', 'edge'], ascending=[False, True, False])
-    styled_log = full_log.style.apply(highlight_result, axis=1).format({
-        'odds': '{:.2f}',
-        'implied_prob': '{:.2%}',
-        'projection': '{:.2%}',
-        'edge': '{:.2%}'
-    })
-
-    st.dataframe(styled_log)
+    st.dataframe(df.sort_values(['date', 'market', 'edge'], ascending=[False, True, False]))

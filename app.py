@@ -2,7 +2,7 @@ import sys, os
 sys.path.append(os.path.dirname(__file__))
 
 import streamlit as st
-from get_odds import get_mlb_odds, save_to_csv
+from get_odds import get_odds, save_to_csv
 
 st.set_page_config(page_title="MLB Locks Dashboard", layout="wide")
 st.title("🔒 Top MLB Locks Today")

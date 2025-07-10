@@ -16,8 +16,9 @@ def fetch_odds():
 
 df = fetch_odds()
 
-# Auto-save picks once at 8 AM
-if datetime.datetime.now().hour == 8:
+# ✅ Save top bets if not already saved today
+today_file = f"daily_bets/{datetime.datetime.now().strftime('%Y-%m-%d')}.csv"
+if not os.path.exists(today_file):
     save_top_bets(df)
 
 save_to_csv(df)

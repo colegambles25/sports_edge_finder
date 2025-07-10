@@ -1,14 +1,14 @@
 matchup,book,market,team_or_player,odds,implied_prob,projection,book_weight,edge,result
 Pittsburgh Pirates @ Kansas City Royals,BetMGM,h2h,Pittsburgh Pirates,2.7,0.37037037,0.55,1.1,0.197592593,
-Los Angeles Dodgers @ Milwaukee Brewers,BetUS,h2h,Milwaukee Brewers,2.44,0.409836066,0.55,1,0.140163934,Win
+Los Angeles Dodgers @ Milwaukee Brewers,BetUS,h2h,Milwaukee Brewers,2.44,0.409836066,0.55,1,0.140163934,W
 Seattle Mariners @ New York Yankees,DraftKings,h2h,Seattle Mariners,2.34,0.427350427,0.55,1.1,0.13491453,
-Toronto Blue Jays @ Chicago White Sox,LowVig.ag,h2h,Chicago White Sox,2.37,0.421940928,0.55,1,0.128059072,Win
-New York Mets @ Baltimore Orioles,LowVig.ag,h2h,Baltimore Orioles,2.36,0.423728814,0.55,1,0.126271186,Push
+Toronto Blue Jays @ Chicago White Sox,LowVig.ag,h2h,Chicago White Sox,2.37,0.421940928,0.55,1,0.128059072,W
+New York Mets @ Baltimore Orioles,LowVig.ag,h2h,Baltimore Orioles,2.36,0.423728814,0.55,1,0.126271186,P
 Washington Nationals @ St. Louis Cardinals,LowVig.ag,spreads,St. Louis Cardinals -1.5,2.82,0.354609929,0.55,1,0.195390071,
 Arizona Diamondbacks @ San Diego Padres,BetMGM,spreads,San Diego Padres -1.5,2.65,0.377358491,0.55,1.1,0.18990566,
 Cleveland Guardians @ Houston Astros,BetMGM,spreads,Houston Astros -1.5,2.55,0.392156863,0.55,1.1,0.173627451,
 Miami Marlins @ Cincinnati Reds,BetMGM,spreads,Cincinnati Reds -1.5,2.54,0.393700787,0.55,1.1,0.171929134,
-Tampa Bay Rays @ Detroit Tigers,BetMGM,spreads,Detroit Tigers -1.5,2.5,0.4,0.55,1.1,0.165,Loss
+Tampa Bay Rays @ Detroit Tigers,BetMGM,spreads,Detroit Tigers -1.5,2.5,0.4,0.55,1.1,0.165,L
 Arizona Diamondbacks @ San Diego Padres,LowVig.ag,totals,Under 7.5,2.07,0.483091787,0.55,1,0.066908213,
 Cleveland Guardians @ Houston Astros,LowVig.ag,totals,Over 8.0,2.07,0.483091787,0.55,1,0.066908213,
 Colorado Rockies @ Boston Red Sox,Bovada,totals,Under 9.0,2.05,0.487804878,0.55,1,0.062195122,

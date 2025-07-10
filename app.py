@@ -37,7 +37,7 @@ def top_unique(df, market_key):
             used_matchups.add(row['matchup'])
         if len(picks) == 5:
             break
-    return pd.DataFrame(picks)
+    return pd.DataFrame([row._asdict() if hasattr(row, '_asdict') else row.to_dict() for row in picks])
 
 top_ml = top_unique(df, 'h2h')
 top_spread = top_unique(df, 'spreads')

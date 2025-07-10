@@ -50,12 +50,38 @@ def get_mlb_odds():
     df = pd.DataFrame(rows)
     df = df[df['odds'] <= 3.0]  # Remove longshots
     df['projection'] = 0.55
-    sharp_books = ['BetMGM', 'PointsBet', 'Caesars', 'DraftKings']
-    df['book_weight'] = df['book'].apply(lambda x: 1.1 if x in sharp_books else 1.0)
+
+    # Load recent performance log
+    log_path = 'data/book_performance_log.csv'
+    if os.path.exists(log_path):
+        history = pd.read_csv(log_path)
+        history = history[history['win_pct'].notna()]
+        recent = history.tail(5)  # use last 5 days of logs
+        avg_win_edge = recent[recent['win_pct'] > 50]['roi'].mean() / 100
+        avg_loss_edge = recent[recent['win_pct'] <= 50]['roi'].mean() / 100
+        edge_threshold = max(avg_win_edge, 0.08) if avg_win_edge > avg_loss_edge else 0.10
+    else:
+        edge_threshold = 0.10  # fallback default
+
+    # 📊 Assign weights based on historical book performance
+    book_weights = {
+        'BetMGM': 1.12,
+        'PointsBet': 1.08,
+        'Caesars': 1.10,
+        'DraftKings': 1.15,
+        'FanDuel': 1.05
+    }
+    df['book_weight'] = df['book'].map(book_weights).fillna(1.0)
+
     df['edge'] = (df['projection'] - df['implied_prob']) * df['book_weight']
+
+    # 🧠 Apply dynamic edge filter
+    df = df[df['edge'] >= edge_threshold]
+
     df = df.sort_values('edge', ascending=False)
     df = df.drop_duplicates(subset=['matchup', 'market'], keep='first')
     return df.sort_values(['market', 'edge'], ascending=[True, False])
+
 
 def save_top_bets(df, top_n=5):
     today = datetime.now().strftime('%Y-%m-%d')

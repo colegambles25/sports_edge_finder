@@ -59,17 +59,24 @@ if not top_total.empty:
 else:
     st.info("No totals bets available.")
 
-# 📥 Allow download of today's picks
+# 📥 Allow user to download today's displayed picks
 from io import StringIO
 
-st.subheader("📥 Download Today's Picks")
+st.subheader("📥 Download Displayed Picks as CSV")
 
+# Combine today's top picks across markets
+displayed_picks = pd.concat([top_ml, top_spread, top_total], ignore_index=True)
+displayed_picks = displayed_picks[['matchup', 'market', 'team_or_player', 'book', 'odds', 'implied_prob', 'projection', 'edge']]
+
+# Convert to CSV in memory
 csv_buffer = StringIO()
-df.to_csv(csv_buffer, index=False)
+displayed_picks.to_csv(csv_buffer, index=False)
+
+# Download button
 st.download_button(
-    label="Download CSV",
+    label="📥 Download CSV of Top Picks",
     data=csv_buffer.getvalue(),
-    file_name=f"{datetime.datetime.now().strftime('%Y-%m-%d')}.csv",
+    file_name=f"top_picks_{datetime.datetime.now().strftime('%Y-%m-%d')}.csv",
     mime="text/csv"
 )
 

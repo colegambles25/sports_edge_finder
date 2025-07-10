@@ -33,11 +33,11 @@ def top_unique(df, market_key):
     filtered = df[df['market'] == market_key]
     for _, row in filtered.iterrows():
         if row['matchup'] not in used_matchups:
-            picks.append(row)
+            picks.append(dict(row))  # store as dict
             used_matchups.add(row['matchup'])
         if len(picks) == 5:
             break
-    return pd.DataFrame([dict(row) for row in picks])
+    return pd.DataFrame(picks)  # no need to convert again
 
 top_ml = top_unique(df, 'h2h')
 top_spread = top_unique(df, 'spreads')

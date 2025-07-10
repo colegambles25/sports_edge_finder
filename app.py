@@ -2,6 +2,7 @@ import sys, os
 sys.path.append(os.path.dirname(__file__))
 
 import streamlit as st
+import pandas as pd
 import datetime
 from odds_engine import get_mlb_odds, save_top_bets, save_to_csv
 
@@ -23,9 +24,8 @@ if not os.path.exists(today_file):
 
 save_to_csv(df)
 
-# Display top 5 bets per market
+# Display top 5 bets per market with unique matchups across all
 df = df.sort_values('edge', ascending=False)
-
 used_matchups = set()
 
 def top_unique(df, market_key):
@@ -33,11 +33,11 @@ def top_unique(df, market_key):
     filtered = df[df['market'] == market_key]
     for _, row in filtered.iterrows():
         if row['matchup'] not in used_matchups:
-            picks.append(dict(row))  # store as dict
+            picks.append(row.to_dict())  # Ensure each row is a dict
             used_matchups.add(row['matchup'])
         if len(picks) == 5:
             break
-    return pd.DataFrame(picks)  # no need to convert again
+    return pd.DataFrame(picks) if picks else pd.DataFrame(columns=df.columns)
 
 top_ml = top_unique(df, 'h2h')
 top_spread = top_unique(df, 'spreads')

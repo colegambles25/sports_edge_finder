@@ -26,10 +26,18 @@ save_to_csv(df)
 # Display top 5 bets per market
 df = df.sort_values('edge', ascending=False)
 
+used_matchups = set()
+
 def top_unique(df, market_key):
+    picks = []
     filtered = df[df['market'] == market_key]
-    filtered = filtered.drop_duplicates(subset='matchup', keep='first')
-    return filtered.head(5)
+    for _, row in filtered.iterrows():
+        if row['matchup'] not in used_matchups:
+            picks.append(row)
+            used_matchups.add(row['matchup'])
+        if len(picks) == 5:
+            break
+    return pd.DataFrame(picks)
 
 top_ml = top_unique(df, 'h2h')
 top_spread = top_unique(df, 'spreads')

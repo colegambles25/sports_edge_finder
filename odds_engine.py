@@ -96,14 +96,21 @@ def save_top_bets(df, top_n=5):
     os.makedirs(output_dir, exist_ok=True)
     filepath = os.path.join(output_dir, f'{today}.csv')
 
-    top_bets = pd.concat([
-        df[df['market'] == 'h2h'].nlargest(top_n, 'edge'),
-        df[df['market'] == 'spreads'].nlargest(top_n, 'edge'),
-        df[df['market'] == 'totals'].nlargest(top_n, 'edge')
-    ])
+    used_matchups = set()
+    top_bets = []
 
-    top_bets['result'] = ''  # Fill this in manually later
-    top_bets.to_csv(filepath, index=False)
+    for market_key in ['h2h', 'spreads', 'totals']:
+        filtered = df[df['market'] == market_key]
+        for _, row in filtered.iterrows():
+            if row['matchup'] not in used_matchups:
+                top_bets.append(row)
+                used_matchups.add(row['matchup'])
+            if len([b for b in top_bets if b['market'] == market_key]) >= top_n:
+                break
+
+    top_df = pd.DataFrame(top_bets)
+    top_df['result'] = ''  # Fill this in manually later
+    top_df.to_csv(filepath, index=False)
     print(f"✅ Saved top bets to {filepath}")
 
 def save_to_csv(df, filename='logged_bets.csv'):

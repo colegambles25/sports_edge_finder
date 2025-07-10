@@ -3,7 +3,7 @@ import pandas as pd
 import os
 from datetime import datetime
 
-API_KEY = '2323490a159b58cfff6471be89e12d2d'
+API_KEY = 'ef7bdfe7ef53969d614e3b455fe7f324'
 
 def get_mlb_odds():
     url = 'https://api.the-odds-api.com/v4/sports/baseball_mlb/odds'
@@ -48,24 +48,13 @@ def get_mlb_odds():
                         continue
 
     df = pd.DataFrame(rows)
-
-    # 🚫 Remove longshots (over +200)
-    df = df[df['odds'] <= 3.0]
-
-    # 📈 Placeholder projection
+    df = df[df['odds'] <= 3.0]  # Remove longshots
     df['projection'] = 0.55
-
-    # 🧠 Weight sharp books
     sharp_books = ['BetMGM', 'PointsBet', 'Caesars', 'DraftKings']
     df['book_weight'] = df['book'].apply(lambda x: 1.1 if x in sharp_books else 1.0)
-
-    # 💥 Edge calculation
     df['edge'] = (df['projection'] - df['implied_prob']) * df['book_weight']
-
-    # 🔒 Keep highest-edge bet per market per matchup
     df = df.sort_values('edge', ascending=False)
     df = df.drop_duplicates(subset=['matchup', 'market'], keep='first')
-
     return df.sort_values(['market', 'edge'], ascending=[True, False])
 
 def save_top_bets(df, top_n=5):
@@ -83,9 +72,6 @@ def save_top_bets(df, top_n=5):
     top_bets['result'] = ''  # Fill this in manually later
     top_bets.to_csv(filepath, index=False)
     print(f"✅ Saved top bets to {filepath}")
-
-def save_to_csv(df, filename='logged_bets.csv'):
-    df.to_csv(filename, index=False)
 
 if __name__ == '__main__':
     df = get_mlb_odds()

@@ -59,4 +59,18 @@ if not top_total.empty:
 else:
     st.info("No totals bets available.")
 
+# 📥 Allow download of today's picks
+from io import StringIO
+
+st.subheader("📥 Download Today's Picks")
+
+csv_buffer = StringIO()
+df.to_csv(csv_buffer, index=False)
+st.download_button(
+    label="Download CSV",
+    data=csv_buffer.getvalue(),
+    file_name=f"{datetime.datetime.now().strftime('%Y-%m-%d')}.csv",
+    mime="text/csv"
+)
+
 st.caption(f"Last updated: {datetime.datetime.now().strftime('%Y-%m-%d %I:%M %p')}")

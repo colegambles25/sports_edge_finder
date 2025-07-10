@@ -75,7 +75,7 @@ market_summary = df.groupby('market').agg(
     wins=('result', lambda x: (x == 'W').sum()),
     losses=('result', lambda x: (x == 'L').sum()),
     pushes=('result', lambda x: (x == 'P').sum()),
-    win_pct=('result', lambda x: (x == 'W').mean() * 100),
+    win_pct=('result', lambda x: (x[x.isin(['W', 'L'])] == 'W').mean() * 100),
     roi=('units', lambda x: (x.sum() / len(x)) * 100)
 ).reset_index()
 st.dataframe(market_summary.style.format({'win_pct': '{:.1f}%', 'roi': '{:.2f}%'}))

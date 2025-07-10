@@ -31,7 +31,17 @@ if df.empty:
 # Clean + prepare
 df['result'] = df['result'].fillna('').str.upper()
 df = df[df['result'].isin(['W', 'L'])]
-df['units'] = df.apply(lambda row: row['odds'] - 1 if row['result'] == 'W' else -1, axis=1)
+def calc_units(row):
+    if row['result'] == 'W':
+        return row['odds'] - 1
+    elif row['result'] == 'L':
+        return -1
+    elif row['result'] == 'P':
+        return 0
+    else:
+        return None  # for blanks or errors
+
+df['units'] = df.apply(calc_units, axis=1)
 
 # Sidebar filters
 with st.sidebar:

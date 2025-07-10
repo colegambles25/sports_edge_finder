@@ -30,7 +30,8 @@ if df.empty:
 
 # Clean + prepare
 df['result'] = df['result'].fillna('').str.upper()
-df = df[df['result'].isin(['W', 'L'])]
+df['result'] = df['result'].fillna('').str.upper()
+df = df[df['result'].isin(['W', 'L', 'P'])]
 def calc_units(row):
     if row['result'] == 'W':
         return row['odds'] - 1
@@ -55,7 +56,8 @@ with st.sidebar:
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("📅 Days Tracked", df['date'].nunique())
 col2.metric("💥 Total Bets", len(df))
-col3.metric("✅ Win %", f"{(df['result']=='W').mean()*100:.1f}%")
+win_df = df[df['result'].isin(['W', 'L'])]  # exclude pushes
+col3.metric("✅ Win %", f"{(win_df['result']=='W').mean()*100:.1f}%")
 col4.metric("📈 ROI", f"{df['units'].sum() / len(df) * 100:.2f}%")
 
 # 📉 Daily ROI Chart
@@ -72,6 +74,7 @@ market_summary = df.groupby('market').agg(
     bets=('result', 'count'),
     wins=('result', lambda x: (x == 'W').sum()),
     losses=('result', lambda x: (x == 'L').sum()),
+    pushes=('result', lambda x: (x == 'P').sum()),
     win_pct=('result', lambda x: (x == 'W').mean() * 100),
     roi=('units', lambda x: (x.sum() / len(x)) * 100)
 ).reset_index()
@@ -79,4 +82,23 @@ st.dataframe(market_summary.style.format({'win_pct': '{:.1f}%', 'roi': '{:.2f}%'
 
 # 📋 Full Bet Log
 with st.expander("📋 View Full Bet History"):
-    st.dataframe(df.sort_values(['date', 'market', 'edge'], ascending=[False, True, False]))
+
+    def highlight_result(row):
+        if row['result'] == 'W':
+            return ['background-color: #d4edda'] * len(row)  # Light green
+        elif row['result'] == 'L':
+            return ['background-color: #f8d7da'] * len(row)  # Light red
+        elif row['result'] == 'P':
+            return ['background-color: #e2e3e5'] * len(row)  # Light gray
+        else:
+            return [''] * len(row)
+
+    full_log = df.sort_values(['date', 'market', 'edge'], ascending=[False, True, False])
+    styled_log = full_log.style.apply(highlight_result, axis=1).format({
+        'odds': '{:.2f}',
+        'implied_prob': '{:.2%}',
+        'projection': '{:.2%}',
+        'edge': '{:.2%}'
+    })
+
+    st.dataframe(styled_log)
